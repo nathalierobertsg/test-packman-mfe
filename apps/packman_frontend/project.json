@@ -1,0 +1,85 @@
+{
+  "name": "packman_frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/packman_frontend/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/packman_frontend",
+        "index": "apps/packman_frontend/src/index.html",
+        "baseHref": "/",
+        "main": "apps/packman_frontend/src/main.ts",
+        "tsConfig": "apps/packman_frontend/tsconfig.app.json",
+        "assets": [
+          "apps/packman_frontend/src/favicon.ico",
+          "apps/packman_frontend/src/assets"
+        ],
+        "styles": ["apps/packman_frontend/src/styles.css"],
+        "scripts": [],
+        "webpackConfig": "apps/packman_frontend/webpack.config.ts"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/packman_frontend/src/environments/environment.ts",
+              "with": "apps/packman_frontend/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "webpackConfig": "apps/packman_frontend/webpack.config.prod.ts"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "packman_frontend:build",
+        "hmr": true,
+        "port": 4201
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "packman_frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "packman_frontend:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/react:module-federation-static-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "serveTarget": "packman_frontend:serve"
+      },
+      "configurations": {
+        "development": {
+          "serveTarget": "packman_frontend:serve:development"
+        },
+        "production": {
+          "serveTarget": "packman_frontend:serve:production"
+        }
+      }
+    }
+  }
+}
