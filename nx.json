@@ -14,7 +14,7 @@
     ],
     "sharedGlobals": []
   },
-  "nxCloudId": "67c58b64156db067f3764f42",
+  "nxCloudId": "67c9dd2349ea3abb9bb3775b",
   "plugins": [
     {
       "plugin": "@nx/webpack/plugin",
@@ -26,18 +26,8 @@
         "watchDepsTargetName": "watch-deps"
       }
     },
-    {
-      "plugin": "@nx/eslint/plugin",
-      "options": {
-        "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx/jest/plugin",
-      "options": {
-        "targetName": "test"
-      }
-    }
+    { "plugin": "@nx/eslint/plugin", "options": { "targetName": "lint" } },
+    { "plugin": "@nx/jest/plugin", "options": { "targetName": "test" } }
   ],
   "generators": {
     "@nx/react": {
@@ -47,28 +37,14 @@
         "linter": "eslint",
         "bundler": "webpack"
       },
-      "component": {
-        "style": "css"
-      },
-      "library": {
-        "style": "css",
-        "linter": "eslint"
-      }
+      "component": { "style": "css" },
+      "library": { "style": "css", "linter": "eslint" }
     }
   },
   "targetDefaults": {
-    "build": {
-      "cache": true,
-      "dependsOn": ["^build"]
-    },
+    "build": { "cache": true, "dependsOn": ["^build"] },
     "@nx/webpack:webpack": {
-      "inputs": [
-        "production",
-        "^production",
-        {
-          "env": "NX_MF_DEV_REMOTES"
-        }
-      ],
+      "inputs": ["production", "^production", { "env": "NX_MF_DEV_REMOTES" }],
       "dependsOn": ["^build"],
       "cache": true
     }
